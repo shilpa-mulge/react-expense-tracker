@@ -56,6 +56,9 @@ return (
       </Button>
     </Form>}
     </Row>
+    <Row>
+    <Button variant="info" bg='dark'>Have an account? Login</Button>
+    </Row>
     </Container>
     </>
 )

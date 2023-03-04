@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form, Button, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Econtext from "../store/econtext";
+import classes from './Login.module.css'
 const Login=()=>{
     const ctx=useContext(Econtext)
     const [isLoding, setIsLoading] = useState(false)
@@ -51,7 +52,7 @@ Login      </Button>
     </Form>}
     </Row>
     <Row>
-    <Button variant="secondary">Dont have an account? signUp</Button>
+    <Button variant="info" bg='dark'>Dont have an account? signUp</Button>
     </Row>
     </Container>
    

@@ -15,6 +15,11 @@ const Main=()=>{
                 <Nav.Link as={NavLink} to='/SignUp' >SignUp</Nav.Link>
             </Nav.Item>
         </Nav>
+        <Nav className="ms-auto">
+        <Nav.Item>
+                <Nav.Link as={NavLink} to='/Profile' >Your profile is incomplete. complete now.</Nav.Link>
+            </Nav.Item>
+        </Nav>
     </Navbar>
     )
 }

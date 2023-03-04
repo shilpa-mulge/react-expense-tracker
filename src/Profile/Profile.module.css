@@ -1,0 +1,16 @@
+form{
+    width: auto;
+    background-color: rgb(240, 248, 255);
+}
+h2{
+    text-align: center;
+    color: white;
+}
+h3{
+    text-align: left;
+    color: white;
+}
+p{
+    text-align: right;
+    color: white;
+}
