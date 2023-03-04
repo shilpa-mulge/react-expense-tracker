@@ -1,41 +1,40 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import axios from "axios";
-import { Form, Button, Container,Row } from "react-bootstrap";
-import classes from './Signup.module.css'
-const Signup=props=>{
+import { Form, Button, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Econtext from "../store/econtext";
+const Login=()=>{
+    const ctx=useContext(Econtext)
     const [isLoding, setIsLoading] = useState(false)
     // Initialize state for form fields
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-
+const Navigate=useNavigate()
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true)
-        if (password === confirmPassword) {
             try {
-                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
+                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
                     email: email, password: password, returnSecureToken: true
                 })
-              console.log("User has successfully signed up.")
+                const nameId = response.data.email.split('@')[0];
+                ctx.login(response.data.idToken, nameId)
+Navigate('/home')
+
             } catch (error) {
                 alert(error.response.data.error.message)
             }
             setEmail('')
-            setConfirmPassword('')
             setPassword('')
-        } else {
-            alert("Password and Confirm Password do not match")
-        }
-        setIsLoading(false)
+            setIsLoading(false)
     };
 return (
     <>
-    <Container className="rounded p-4 mb-4 shadow w-75">
+    <Container  className="rounded p-4 mb-4 shadow w-75">
+        <Row>
     {isLoding && <p>Loading...</p>}
-    <Row>
 {!isLoding&&  <Form onSubmit={handleSubmit}>
-    <h2>SignUp</h2>
+    <h2>Login</h2>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control type="email" placeholder="Enter email" value={email}
      onChange={(event) => setEmail(event.target.value)} required />
@@ -44,20 +43,19 @@ return (
         <Form.Control type="password" placeholder="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)} required/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formConfirmPassword">
-        <Form.Control type="password" placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)} required/>
-      </Form.Group>
-      
+      </Form.Group>  
       <Button variant="primary" type="submit">
-        Submit
-      </Button>
+Login      </Button>
+      <p>forgot password?</p>
+     
     </Form>}
     </Row>
+    <Row>
+    <Button variant="secondary">Dont have an account? signUp</Button>
+    </Row>
     </Container>
+   
     </>
 )
 }
-export default Signup;
+export default Login;
