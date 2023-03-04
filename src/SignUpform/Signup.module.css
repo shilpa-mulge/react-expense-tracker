@@ -1,0 +1,12 @@
+.form{
+    width:auto
+}
+form{
+    margin-top: 10rem;
+    margin-left: 10rem;
+    background-color: beige;
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 3rem;
+}
