@@ -7,6 +7,7 @@ const Econtext = React.createContext({
     login: (token) => { },
     logout: () => { },
     expenses:[],
-    addExpenses:(data)=>{}
+    addExpenses:(data)=>{},
+  
 })
 export default Econtext;

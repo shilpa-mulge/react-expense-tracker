@@ -32,6 +32,9 @@ const response=await axios.post("https://expense-tracker-b91f4-default-rtdb.fire
 }
 catch(error){
 alert(error.response.data.error.message)
+setMoneySpent('')
+setCategory('')
+setExpenseDescription('');
 }
 
   };

@@ -39,7 +39,7 @@ const expensesHandler=useCallback(async()=>{
               
     for(const key in response.data){
         expenses.push({
-            id:response.data[key].name,
+            id:key,
             Expensename:response.data[key].ExpenseName,
             money:response.data[key].money
         })
@@ -63,7 +63,8 @@ const eContext = {
     login: loginHandler,
     logout: logoutHandler,
     expenses:expenses,
-    addExpenses:expensesHandler
+    addExpenses:expensesHandler,
+    
 }
 return (
     < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>

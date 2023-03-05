@@ -9,6 +9,7 @@ import Profile from './Profile/Profile';
 import { useContext } from 'react';
 import ProfileLogin from './Profile/ProfileLogin';
 import ForgetPass from './ForgetPass/ForgetPass';
+import Expense from './Expense/Expense';
 function App() {
   const ctx=useContext(Econtext)
   return (
@@ -35,6 +36,9 @@ function App() {
   } />}
     <Route path='/ForgetPassword' element={
       <ForgetPass/>
+  } />
+   <Route path='/Expense' element={
+      <Expense/>
   } />
   </Routes>
   </Root>
