@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import Econtext from '../store/econtext';
 function ExpenseList() {
@@ -14,9 +15,9 @@ function ExpenseList() {
           </thead>
           <tbody>
             {ctx.expenses.map((expense, index) => (
-              <tr key={Math.random().toString()}>
+              <tr key={expense.id}>
                 <td>{index + 1}</td>
-                <td>{expense.name}</td>
+                <td>{expense.Expensename}</td>
                 <td>${expense.money}</td>
               </tr>
             ))}

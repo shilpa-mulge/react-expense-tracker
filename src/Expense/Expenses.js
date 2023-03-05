@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import Econtext from '../store/econtext';
@@ -22,9 +23,17 @@ const ctx=useContext(Econtext)
     setCategory(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-ctx.addExpenses({name:category, money:moneySpent})
+try{
+const response=await axios.post("https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses.json",
+    {ExpenseName:category, money:moneySpent})
+    ctx.addExpenses()
+}
+catch(error){
+alert(error.response.data.error.message)
+}
+
   };
 
   return (
