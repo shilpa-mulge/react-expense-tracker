@@ -13,7 +13,7 @@ const Profile=()=>{
          const url=response.data.users[0].photoUrl;
     setUser({displayName:name, photoUrl:url})
         } catch (error) {
-            alert(error)
+            alert(error.response.data.error.message)
         } 
     }
     useEffect(()=>{
