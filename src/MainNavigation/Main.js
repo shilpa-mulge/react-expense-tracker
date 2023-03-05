@@ -5,6 +5,9 @@ import axios from "axios";
 import Econtext from "../store/econtext";
 const Main=()=>{
     const ctx=useContext(Econtext)
+    const logoutHander=()=>{
+        ctx.logout()
+    }
     return (
         <Navbar bg="dark" variant="dark">
         <Nav className="me-auto">
@@ -18,6 +21,11 @@ const Main=()=>{
                 <Nav.Link as={NavLink} to='/SignUp' >SignUp</Nav.Link>
             </Nav.Item>
         </Nav>
+        <Nav className="ms-auto">
+     <Nav.Item>
+     {ctx.isLogedin &&  <Nav.Link as={NavLink} to='/Login' onClick={logoutHander}>Logout</Nav.Link>}
+            </Nav.Item>
+            </Nav>
     </Navbar>
     )
 }
