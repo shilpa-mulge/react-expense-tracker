@@ -14,7 +14,8 @@ if (intialToken !== null && now.getTime() > intialToken.expiry) {
 }
 
 const [token, setToken] = useState(intialToken ? intialToken.idToken : '');
-const [email, setEmail] = useState(intialToken ? intialToken.emailId : '')
+const [email, setEmail] = useState(intialToken ? intialToken.emailId : '');
+const [expenses, setExpenses]=useState([])
 const userLoggedIn = !!token;
 const loginHandler = (token, email) => {
     const item = {
@@ -31,14 +32,18 @@ const logoutHandler = () => {
     setToken(null)
     localStorage.removeItem('token')
 }
-
+const expensesHandler=(data)=>{
+    setExpenses(presata=>[...presata,data])
+}
 
 const eContext = {
     email: email,
     token: token,
     isLogedin: userLoggedIn,
     login: loginHandler,
-    logout: logoutHandler
+    logout: logoutHandler,
+    expenses:expenses,
+    addExpenses:expensesHandler
 }
 return (
     < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>

@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { Container, Navbar, NavbarBrand ,Nav, Button} from "react-bootstrap";
 import Econtext from "../store/econtext";
+import ExpenseForm from "../Expense/Expenses";
+import ExpenseList from "../Expense/ExpenseList";
 const ProfileLogin=()=>{
     const ctx=useContext(Econtext)
     const idToken=ctx.token
@@ -29,6 +31,10 @@ your profile is incomplete<Nav.Link as={NavLink} to='/userProfile' style={{color
 </Nav>
 </Navbar>
 <hr/>
+<Container>
+    <ExpenseForm/>
+    <ExpenseList/>
+</Container>
 </>
 )
 }
