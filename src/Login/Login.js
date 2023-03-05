@@ -20,7 +20,7 @@ const Navigate=useNavigate()
                 })
                 const nameId = response.data.email.split('@')[0];
                 ctx.login(response.data.idToken, nameId)
-Navigate('/home')
+Navigate('/profile')
 
             } catch (error) {
                 alert(error.response.data.error.message)

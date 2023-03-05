@@ -1,5 +1,6 @@
-import React,{useState} from "react";
+import React,{ useState} from "react";
 import Econtext from "./econtext";
+import axios from "axios";
 const EcontextProvider = (props) => {
 //Storing token, email to localStorage
 const item = localStorage.getItem('token');
@@ -30,12 +31,14 @@ const logoutHandler = () => {
     setToken(null)
     localStorage.removeItem('token')
 }
+
+
 const eContext = {
     email: email,
     token: token,
     isLogedin: userLoggedIn,
     login: loginHandler,
-    logout: logoutHandler,
+    logout: logoutHandler
 }
 return (
     < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>

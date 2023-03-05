@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import Econtext from "../store/econtext";
 const Main=()=>{
+    const ctx=useContext(Econtext)
     return (
         <Navbar bg="dark" variant="dark">
         <Nav className="me-auto">
@@ -13,11 +16,6 @@ const Main=()=>{
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link as={NavLink} to='/SignUp' >SignUp</Nav.Link>
-            </Nav.Item>
-        </Nav>
-        <Nav className="ms-auto">
-        <Nav.Item>
-                <Nav.Link as={NavLink} to='/Profile' >Your profile is incomplete. complete now.</Nav.Link>
             </Nav.Item>
         </Nav>
     </Navbar>

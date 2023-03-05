@@ -6,7 +6,10 @@ import Econtext from './store/econtext';
 import Welcome from './Welcom';
 import Root from './MainNavigation/Root';
 import Profile from './Profile/Profile';
+import { useContext } from 'react';
+import ProfileLogin from './Profile/ProfileLogin';
 function App() {
+  const ctx=useContext(Econtext)
   return (
   
     <Root>
@@ -23,9 +26,12 @@ function App() {
   <Route path='/SignUp' element={
       <Signup />
   } />
-   <Route path='/Profile' element={
+  {ctx.isLogedin&& <Route path='/Profile' element={
+      <ProfileLogin />
+  } />}
+   {ctx.isLogedin&& <Route path='/userProfile' element={
       <Profile />
-  } />
+  } />}
   </Routes>
   </Root>
 
