@@ -1,7 +1,7 @@
 import React,{useContext, useState} from "react";
 import axios from "axios";
 import { Form, Button, Container, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Econtext from "../store/econtext";
 import classes from './Login.module.css'
 const Login=()=>{
@@ -29,6 +29,8 @@ Navigate('/profile')
             setPassword('')
             setIsLoading(false)
     };
+
+
 return (
     <>
     <Container  className="rounded p-4 mb-4 shadow w-75">
@@ -47,8 +49,8 @@ return (
       </Form.Group>  
       <Button variant="primary" type="submit">
 Login      </Button>
-      <p>forgot password?</p>
-     
+<hr/>
+      <Link to='/ForgetPassword'>forgot password?</Link>
     </Form>}
     </Row>
     <Row>

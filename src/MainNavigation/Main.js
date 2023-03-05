@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Navbar, Nav,NavLink } from "react-bootstrap";
+
 import axios from "axios";
 import Econtext from "../store/econtext";
 const Main=()=>{

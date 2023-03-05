@@ -8,6 +8,7 @@ import Root from './MainNavigation/Root';
 import Profile from './Profile/Profile';
 import { useContext } from 'react';
 import ProfileLogin from './Profile/ProfileLogin';
+import ForgetPass from './ForgetPass/ForgetPass';
 function App() {
   const ctx=useContext(Econtext)
   return (
@@ -32,6 +33,9 @@ function App() {
    {ctx.isLogedin&& <Route path='/userProfile' element={
       <Profile />
   } />}
+    <Route path='/ForgetPassword' element={
+      <ForgetPass/>
+  } />
   </Routes>
   </Root>
 
