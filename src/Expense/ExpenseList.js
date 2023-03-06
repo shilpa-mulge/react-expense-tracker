@@ -1,9 +1,11 @@
 import axios from 'axios';
-import {Col, Container, Row} from 'react-bootstrap'
+import {Col, Container, Nav, Row} from 'react-bootstrap'
 import React, { useState } from 'react';
 import { Button, Table} from 'react-bootstrap';
 import Expense from './Expense';
 import {  useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { saveAs } from 'file-saver';
 function ExpenseList(props) {
     const [show, setShow] = useState(false);
     const [expense, setExpense]=useState({})
@@ -27,10 +29,23 @@ const onDeletHandler=async(data)=>{
         }
 }
 
+  function handleDownloadClick() {
+    // convert expenses to CSV string
+     const csv = expenses.map((expense) => `${expense.Expensename},${expense.money}`).join('\n');
+    // create a new Blob object with the CSV string
+    console.log(csv)
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+
+    // use file-saver to download the CSV file
+  saveAs(blob, 'expenses.csv');
+  }
 
     return (
         <>
          <Expense show={show} onHide={handleClose} expense={expense} onClick={props.onClick} />
+         <Nav className='ms-auto'>
+      <Nav.Link as={NavLink}  onClick={handleDownloadClick} >Download expenses</Nav.Link>
+      </Nav>
         <Table striped bordered hover>
           <thead>
             <tr>
