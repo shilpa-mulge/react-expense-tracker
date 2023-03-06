@@ -5,15 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/js/bootstrap'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import store from './store';
 import EcontextProvider from './store/EcontextProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <EcontextProvider>
+  <Provider store={store}>
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  </EcontextProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

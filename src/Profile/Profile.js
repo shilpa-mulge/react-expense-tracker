@@ -1,14 +1,14 @@
-import { useContext,useState, useEffect } from "react";
+import {useState, useEffect } from "react";
 import { Form, Col,Row, Button, Container } from "react-bootstrap";
-import Econtext from "../store/econtext";
 import classes from './Profile.module.css'
+import { useSelector } from "react-redux";
 import axios from "axios";
 const Profile=()=>{
-    const ctx=useContext(Econtext)
+    const token=useSelector(state=>state.auth.token);
     const [user, setUser]=useState({displayName:'', photoUrl:''});
     const userUpdateFunction=async()=>{
         try {
-            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8',{idToken:ctx.token})
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8',{idToken:token})
          const name=response.data.users[0].displayName;
          const url=response.data.users[0].photoUrl;
     setUser({displayName:name, photoUrl:url})
@@ -19,13 +19,13 @@ const Profile=()=>{
     useEffect(()=>{
         userUpdateFunction()
     },[]);
-    const idToken=ctx.token;
+
 
     const profileUpdateHandler=async(event)=>{
         event.preventDefault();
             try {
                 const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
-                    idToken:idToken,  displayName:user.displayName, photoUrl:user.photoURL , returnSecureToken: true
+                    idToken:token,  displayName:user.displayName, photoUrl:user.photoUrl , returnSecureToken: true
                 })
              console.log(response.data)
 
@@ -50,7 +50,7 @@ return (
             <Form.Label>Profile photo url</Form.Label>
             </Col>
             <Col>
-          <Form.Control value={user.photoUrl} type='text' onChange={(event) => setUser({ ...user, photoURL: event.target.value })} />
+          <Form.Control value={user.photoUrl} type='text' onChange={(event) => setUser({ ...user, photoUrl: event.target.value })} />
         
         </Col>
         </Row>

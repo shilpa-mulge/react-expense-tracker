@@ -3,9 +3,7 @@ import { Button, Container, Form, Row } from "react-bootstrap";
 import classes from './ForgetPass.module.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Econtext from "../store/econtext";
 const ForgetPass=()=>{
-    const ctx=useContext(Econtext)
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData]=useState(null);
     const emailRef=useRef()

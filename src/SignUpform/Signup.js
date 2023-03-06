@@ -2,8 +2,11 @@ import React,{useState} from "react";
 import axios from "axios";
 import { Form, Button, Container,Row } from "react-bootstrap";
 import classes from './Signup.module.css'
+import { authAction } from "../store/AuthReducer";
+import { useDispatch } from "react-redux";
 const Signup=props=>{
     const [isLoding, setIsLoading] = useState(false)
+    const dispatch=useDispatch()
     // Initialize state for form fields
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,6 +21,7 @@ const Signup=props=>{
                     email: email, password: password, returnSecureToken: true
                 })
               console.log("User has successfully signed up.")
+              
             } catch (error) {
                 alert(error.response.data.error.message)
             }

@@ -1,11 +1,14 @@
-import React,{useContext, useState} from "react";
+import React,{ useState} from "react";
 import axios from "axios";
 import { Form, Button, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Econtext from "../store/econtext";
 import classes from './Login.module.css'
+import { authAction } from "../store/AuthReducer";
+import {useDispatch}  from "react-redux";
 const Login=()=>{
-    const ctx=useContext(Econtext)
+    
+const dispatch=useDispatch();
+
     const [isLoding, setIsLoading] = useState(false)
     // Initialize state for form fields
     const [email, setEmail] = useState('');
@@ -18,15 +21,18 @@ const Navigate=useNavigate()
                 const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
                     email: email, password: password, returnSecureToken: true
                 })
-                const nameId = response.data.email.split('@')[0];
-                ctx.login(response.data.idToken, nameId)
-Navigate('/profile')
+                const emailid = response.data.email.split('@')[0];
+                const token=response.data.idToken
+                dispatch(authAction.login({token:token, emailid:emailid}))
+            
+Navigate('/Profile')
 
             } catch (error) {
                 alert(error.response.data.error.message)
             }
             setEmail('')
             setPassword('')
+            setIsLoading(false)
             setIsLoading(false)
     };
 

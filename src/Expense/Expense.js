@@ -1,12 +1,10 @@
-import React,{useContext, useEffect, useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Button,Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import Econtext from "../store/econtext";
 const Expense=(props)=>{
-    const ctx=useContext(Econtext)
-    const Expensename=props.expense.Expensename;
-    const money=props.expense.money;
-    const id=props.expense.id;
+    const {Expensename}=props.expense;
+    const {money}=props.expense;
+    const{id}=props.expense;
     const [Ename, setName] = useState(Expensename);
     const [amount, setAmount] = useState(money);
 useEffect(()=>{
@@ -19,13 +17,14 @@ useEffect(()=>{
         try{
             const response=await axios.put(`https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses/${id}.json`,
                 {ExpenseName:Ename, money:amount})
-                ctx.addExpenses()
+                props.onClick()
             }
             catch(error){
-            alert(error.response.data.error.message)
+            alert(error)
             }
             props.onHide()
     }
+ 
     return (
         <>
         <Modal show={props.show} onHide={props.onHide}>
