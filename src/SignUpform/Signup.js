@@ -35,9 +35,9 @@ const Signup=props=>{
     };
 return (
     <>
-    <Container className="rounded p-4 mb-4 shadow w-75">
+    <Container className=" rounded p-4 mb-4 shadow w-50 ">
     {isLoding && <p>Loading...</p>}
-    <Row>
+    <Row style={{alignItems:'flex-end'}}>
 {!isLoding&&  <Form onSubmit={handleSubmit}>
     <h2>SignUp</h2>
       <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -40,7 +40,7 @@ Navigate('/Profile')
 return (
     <>
     <Container  className="rounded p-4 mb-4 shadow w-75">
-        <Row>
+        <Row style={{alignItems:'flex-end'}}>
     {isLoding && <p>Loading...</p>}
 {!isLoding&&  <Form onSubmit={handleSubmit}>
     <h2>Login</h2>

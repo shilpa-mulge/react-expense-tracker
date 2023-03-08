@@ -7,7 +7,10 @@ import { toggleThemeaction } from "../store/ThemeReducer";
 
 const Main=()=>{
 const isLogedin=useSelector(state=>state.auth.isLogedin);
-const totalExpenses=useSelector(state=>state.expenses.totalExpenses)
+const expenses=useSelector(state=>state.expenses.expenses);
+const totalAmount=expenses.reduce((cur,expense)=>{
+    return cur+=Number(expense.money)
+  },0)
 const mode = useSelector((state) => state.theme.currentTheme);
 const dispatch=useDispatch();
     const logoutHander=()=>{
@@ -20,7 +23,7 @@ const dispatch=useDispatch();
       
     return (
         <Navbar bg="dark" variant="dark">
-        <Nav className="me-auto">
+        <Nav className="me-auto" style={{width:'auto'}}>
             <Nav.Item>
                 <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
             </Nav.Item>
@@ -31,7 +34,7 @@ const dispatch=useDispatch();
                 <Nav.Link as={NavLink} to='/SignUp' >SignUp</Nav.Link>
             </Nav.Item>}
         </Nav>
-        <Nav className="ms-auto">
+        <Nav className="ms-auto" style={{width:'auto'}}>
      <Nav.Item>
      {isLogedin &&  <Nav.Link as={NavLink} to='/Login' onClick={logoutHander}>Logout</Nav.Link>}
             </Nav.Item>
@@ -39,12 +42,12 @@ const dispatch=useDispatch();
      {isLogedin&&  <Nav.Link as={NavLink} to='/Profile' >profile</Nav.Link>}
             </Nav.Item>
             <Nav.Item>
-     {totalExpenses>10000 && isLogedin&& <Button variant="info">Activate Premium</Button>}
+     {totalAmount>10000 && isLogedin&& <Button variant="info">Activate Premium</Button>}
             </Nav.Item>
             <Nav.Item>
-            <Button variant="primary" onClick={handleClick}>
+            <Nav.Link  onClick={handleClick}>
       {mode === 'light' ? 'Dark Mode' : 'Light Mode'}
-    </Button>
+    </Nav.Link>
             </Nav.Item>
             </Nav>
     </Navbar>

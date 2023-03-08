@@ -7,43 +7,21 @@ import ExpenseForm from "../Expense/ExpensesForm";
 import ExpenseList from "../Expense/ExpenseList";
 import { useDispatch, useSelector } from "react-redux";
 import { ExpenseActions } from "../store/ExpenseReducer";
+import { authAction } from "../store/AuthReducer";
+import { theme } from "../theme";
 const ProfileLogin=()=>{
     const token=useSelector(state=>state.auth.token)
+const IsemailVarified=useSelector(state=>state.auth.IsemailVarified)
+const mode=useSelector(state=>state.theme.currentTheme)
 const dispatch=useDispatch()
-const onClickHandler= useCallback(async()=>{
-    let expenses=[];
-    let amount=0;
-    try{
-        axios.get("https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses.json")
-       .then(response=>{
-           for(const key in response.data){
-               expenses.push({
-                   id:key,
-                   Expensename:response.data[key].ExpenseName,
-                   money:response.data[key].money
-               })
-               amount=amount+Number(response.data[key].money);
-               
-           }   
-    dispatch(ExpenseActions.addExpenses(expenses))
-    dispatch(ExpenseActions.updateExpenseamount(amount))
-           
-       })
-       }
-       catch(error){
-       alert(error.response.data.error.message);
-       } 
-    },[])
 
-    useEffect(()=>{
-        onClickHandler()
-    },[onClickHandler])
 
     const verifyEmailHandler=async()=>{
         try {
             const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8',
             {requestType:"VERIFY_EMAIL",idToken:token})
-            console.log(response.data)
+            //console.log(response.data.email)
+            dispatch(authAction.verification())
         } catch (error) {
        alert(error.response.data.error.message)
         } 
@@ -51,10 +29,10 @@ const onClickHandler= useCallback(async()=>{
 return  (
     <>
 <Navbar>
-    <NavbarBrand>Welcome to expense tracker!!!</NavbarBrand>
+    <NavbarBrand style={{ color: theme[mode].text}}>Welcome to expense tracker!!!</NavbarBrand>
 
-<Nav className='ms-auto'>
-    <Button  onClick={verifyEmailHandler}>Verify Email</Button>
+<Nav className='ms-auto'style={{width:'auto' }}>
+  {!IsemailVarified &&  <Nav.Link style={{ color: theme[mode].text}} onClick={verifyEmailHandler}>Verify Email</Nav.Link>}
     <Container>
 your profile is incomplete<Nav.Link as={NavLink} to='/userProfile' style={{color:'green'}}> complete now.</Nav.Link>
 </Container>
@@ -62,8 +40,8 @@ your profile is incomplete<Nav.Link as={NavLink} to='/userProfile' style={{color
 </Navbar>
 <hr/>
 <Container>
-    <ExpenseForm onClick={onClickHandler} />
-    <ExpenseList  onClick={onClickHandler}/>
+    <ExpenseForm />
+    <ExpenseList/>
 </Container>
 </>
 )

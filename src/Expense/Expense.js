@@ -1,27 +1,26 @@
 import React,{useEffect, useState} from "react";
 import { Button,Form, Modal } from "react-bootstrap";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { ExpenseActions } from "../store/ExpenseReducer";
 const Expense=(props)=>{
-    const {Expensename}=props.expense;
+    const {ExpenseName}=props.expense;
     const {money}=props.expense;
+    const {description}=props.expense;
     const{id}=props.expense;
-    const [Ename, setName] = useState(Expensename);
+    const [Ename, setName] = useState(ExpenseName);
     const [amount, setAmount] = useState(money);
+    const [Description, setDescription]=useState(description)
+    const dispatch=useDispatch()
 useEffect(()=>{
     setAmount(money)
-    setName(Expensename)
-},[Expensename,money])
+    setName(ExpenseName)
+    setDescription(description)
+},[ExpenseName,money,description])
 
-    const handleSubmit=async(event)=>{
+    const handleSubmit=(event)=>{
         event.preventDefault();
-        try{
-            const response=await axios.put(`https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses/${id}.json`,
-                {ExpenseName:Ename, money:amount})
-                props.onClick()
-            }
-            catch(error){
-            alert(error)
-            }
+        dispatch(ExpenseActions.EditExpenses ({id:id,ExpenseName:Ename, money:amount, description:Description}))
             props.onHide()
     }
  
@@ -39,6 +38,14 @@ useEffect(()=>{
               type="text"
               value={Ename}
               onChange={(event) => setName(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              value={Description}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="amount">

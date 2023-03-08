@@ -8,15 +8,48 @@ import Profile from './Profile/Profile';
 import ProfileLogin from './Profile/ProfileLogin';
 import ForgetPass from './ForgetPass/ForgetPass';
 import Expense from './Expense/Expense';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import {theme} from './theme'
-import Premium from './Profile/Premium';
-
+import NotFound from './MainNavigation/NotFound';
+import { useEffect } from 'react';
+import { SendPostReq } from './store/SendPostReq';
+import { SendGetReq } from './store/SendGetReq';
+import { SendPutReq } from './store/SendPutReq';
+import {SendDeleteReq} from './store/SendDeleteReq'
+let isShown=true;
 function App() {
   const isLogedin=useSelector(state=>state.auth.isLogedin)
+  const expenses=useSelector(state=>state.expenses.item)
+const id=useSelector(state=>state.expenses.id);
+  const dispatch=useDispatch();
   const mode = useSelector((state) => state.theme.currentTheme);
-  return (
+const Added=useSelector(state=>state.expenses.Added)
+const deleted=useSelector(state=>state.expenses.deleted)
+const edited=useSelector(state=>state.expenses.edited)
+  useEffect(()=>{
+    dispatch(SendGetReq())
+  },[dispatch])
+
+useEffect(()=>{
+  if(isShown){
+  isShown=false;
+  return;
+  }
+  if(Added){
+dispatch(SendPostReq(expenses))
+  }
+ if(edited){
+  console.log("Ediding")
+  dispatch(SendPutReq(expenses,id))
+}
+if(deleted){
+  dispatch(SendDeleteReq(id))
+}
+ 
+},[expenses,dispatch])
+
+return(
     <ThemeProvider theme={theme}>
       <div style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
     <Root >
@@ -27,25 +60,27 @@ function App() {
   <Route path='/home' element={
       <Welcome />
   } />
-  <Route path='/Profile' element={
+ <Route path='/Profile' element={
       <ProfileLogin />
   } />
- {!isLogedin&& <Route path='/Login' element={
+  <Route path='/Login' element={
       <Login />
-  } />}
+  } />
   <Route path='/SignUp' element={
       <Signup />
   } />
   
-   {isLogedin&& <Route path='/userProfile' element={
+    <Route path='/userProfile' element={
       <Profile />
-  } />}
+  } />
     <Route path='/ForgetPassword' element={
       <ForgetPass/>
   } />
    <Route path='/Expense' element={
       <Expense/>
   } />
+  
+  <Route path='*' element={  <NotFound/> } />
   </Routes>
   </Root>
   </div>

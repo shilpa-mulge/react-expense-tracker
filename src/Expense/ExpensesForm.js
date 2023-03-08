@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { ExpenseActions } from '../store/ExpenseReducer';
 const categories = ['Food', 'Petrol', 'Salary', 'Other'];
 
 const ExpenseForm = (props) => {
   const [moneySpent, setMoneySpent] = useState('');
   const [expenseDescription, setExpenseDescription] = useState('');
   const [category, setCategory] = useState('');
+  const dispatch=useDispatch()
   const handleMoneySpentChange = (event) => {
     setMoneySpent(event.target.value);
   };
@@ -21,19 +24,12 @@ const ExpenseForm = (props) => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-try{
-const response=await axios.post("https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses.json",
-    {ExpenseName:category, money:moneySpent})
-    props.onClick()
-
-}
-catch(error){
-alert(error.response.data.error.message)
-setMoneySpent('')
-setCategory('')
-setExpenseDescription('');
-}
-
+dispatch(ExpenseActions.AddExpense({ ExpenseName:category,
+  money:moneySpent,
+  description:expenseDescription,}))
+  setCategory('');
+  setExpenseDescription('');
+  setMoneySpent('');
   };
 
   return (
