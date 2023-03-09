@@ -1,6 +1,6 @@
 export const theme = {
     light: {
-      bodyBg: '#ffffff',
+      bodyBg: "rgb(255, 255, 255)",
       text: '#000000',
       primary: '#007bff',
       danger: '#dc3545',

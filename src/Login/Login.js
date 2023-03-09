@@ -10,6 +10,8 @@ const Login=()=>{
 const dispatch=useDispatch();
 
     const [isLoding, setIsLoading] = useState(false)
+
+    
     // Initialize state for form fields
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +41,7 @@ Navigate('/Profile')
 
 return (
     <>
-    <Container  className="rounded p-4 mb-4 shadow w-75">
+    <Container  className="rounded p-4 mb-4 mt-4 shadow w-75 bg-info bg-opacity-25" >
         <Row style={{alignItems:'flex-end'}}>
     {isLoding && <p>Loading...</p>}
 {!isLoding&&  <Form onSubmit={handleSubmit}>

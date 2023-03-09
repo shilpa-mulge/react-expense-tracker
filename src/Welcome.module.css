@@ -1,0 +1,11 @@
+.container{
+    text-align: center;
+width:fit-content;
+   height: fit-content;
+    padding-top: 4rem;
+}
+p{
+    font-style: italic;
+    font-size: 25px;
+}
+ 

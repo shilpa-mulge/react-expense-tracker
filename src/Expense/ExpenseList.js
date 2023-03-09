@@ -35,7 +35,7 @@ const onDeletHandler=(id)=>{
 
   function handleDownloadClick() {
     // convert expenses to CSV string
-     const csv = expenses.map((expense) => `${expense.Expensename},${expense.money}`).join('\n');
+     const csv = expenses.map((expense) => `${expense.ExpenseName},${expense.description},${expense.money}`).join('\n');
     // create a new Blob object with the CSV string
   
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
@@ -46,12 +46,12 @@ const onDeletHandler=(id)=>{
 
     return (
         <>
-      {expenses===null&&  <h1>No expenses, add some expenses</h1>}
-      {expenses!==null && <Expense show={show} onHide={handleClose} expense={expense} />}
-         <Container className="rounded p-4 mb-4 shadow ">
+      {expenses===null&& <h1>No expenses, add some expenses</h1>}
+     <Expense show={show} onHide={handleClose} expense={expense} />
+         <Container className="rounded p-4 mb-4 shadow bg-info bg-opacity-25 ">
         <Row>
-         <Nav className='ms-auto'>
-      <Nav.Link as={NavLink}  onClick={handleDownloadClick} >Download expenses</Nav.Link>
+         <Nav className='ms-auto '>
+      <Nav.Link  as={NavLink}  onClick={handleDownloadClick} >Download expenses</Nav.Link>
       </Nav>
       </Row>
       <Row>
@@ -60,7 +60,9 @@ const onDeletHandler=(id)=>{
             <tr >
               <th>#</th>
               <th>Name</th>
+              <th>Description</th>
               <th>Amount</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

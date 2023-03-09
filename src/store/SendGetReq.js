@@ -1,14 +1,15 @@
+
 import { ExpenseActions } from "./ExpenseReducer";
 import { UiActions } from "./UiSlice";
-export const SendGetReq=()=>{
+export const SendGetReq=(email)=>{
     return async(dispatch)=>{
         dispatch(UiActions.shownotifiaction({
-            status:'pending',
+            status:'info',
             title:'Sending.....',
             message:'Fetching expense data!',
           }))
         const SendGetHttp=async()=>{
-            const response=await fetch("https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses.json")
+            const response=await fetch(`https://expense-tracker-b91f4-default-rtdb.firebaseio.com/expenses/${email}.json`)
             if(!response.ok){
                 throw new Error("Fetching expense data faild!")
                 }
@@ -28,13 +29,13 @@ export const SendGetReq=()=>{
        }
        dispatch(ExpenseActions.ReplaceCart(FetchedData||[]))
         dispatch(UiActions.shownotifiaction({
-            status:'Success',
+            status:'success',
             title:'Success!',
             message:'Fetched expense data Successfuly!',
           }))
         }catch(error){
             dispatch(UiActions.shownotifiaction({
-                status:'error',
+                status:'danger',
                 title:'Error',
                 message:'Fetching expense data Faild!',
               }))

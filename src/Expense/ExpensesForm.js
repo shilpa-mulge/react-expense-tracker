@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button,Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { ExpenseActions } from '../store/ExpenseReducer';
 const categories = ['Food', 'Petrol', 'Salary', 'Other'];
@@ -33,6 +33,7 @@ dispatch(ExpenseActions.AddExpense({ ExpenseName:category,
   };
 
   return (
+    <Container className='mt-3 bg-info bg-opacity-25'>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="moneySpent">
         <Form.Label>Money spent:</Form.Label>
@@ -55,6 +56,7 @@ dispatch(ExpenseActions.AddExpense({ ExpenseName:category,
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
     </Form>
+    </Container>
   );
 };
 

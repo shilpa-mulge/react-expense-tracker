@@ -3,7 +3,9 @@ import { Form, Col,Row, Button, Container } from "react-bootstrap";
 import classes from './Profile.module.css'
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Profile=()=>{
+    const Navigate=useNavigate()
     const token=useSelector(state=>state.auth.token);
     const [user, setUser]=useState({displayName:'', photoUrl:''});
     const userUpdateFunction=async()=>{
@@ -32,6 +34,10 @@ const Profile=()=>{
             } catch (error) {
                 alert(error.response.data.error.message)
             } 
+            Navigate('/Profile')
+    }
+    const onCancleHandler=()=>{
+        Navigate('/Profile')
     }
 return (
     <>
@@ -42,7 +48,7 @@ return (
         <hr/>
     <Container className="rounded p-4 mb-4 shadow w-75" >
         <h2 >Contact details</h2>
-    <Form onSubmit={profileUpdateHandler}>
+    <Form className="fs-2 bg-info bg-opacity-25 rounded" onSubmit={profileUpdateHandler}>
       <Row>
           <Col>  <Form.Label>Full name</Form.Label></Col>
          <Col> <Form.Control value={user.displayName} type='text'  onChange={(event) => setUser({ ...user, displayName: event.target.value })}/></Col>
@@ -57,7 +63,7 @@ return (
      <Container className="rounded p-4 mb-4  ">
      <Button variant="secondary" type='submit'>Update</Button>{' '}
      
-     <Button variant="secondary">Cancel</Button>
+     <Button variant="secondary" onClick={onCancleHandler}>Cancel</Button>
      </Container>
     </Form>
    

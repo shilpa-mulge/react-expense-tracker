@@ -1,11 +1,12 @@
 import React from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authAction } from "../store/AuthReducer";
 import { toggleThemeaction } from "../store/ThemeReducer";
 
 const Main=()=>{
+  const Navigate=useNavigate();
 const isLogedin=useSelector(state=>state.auth.isLogedin);
 const expenses=useSelector(state=>state.expenses.expenses);
 const totalAmount=expenses.reduce((cur,expense)=>{
@@ -15,6 +16,7 @@ const mode = useSelector((state) => state.theme.currentTheme);
 const dispatch=useDispatch();
     const logoutHander=()=>{
         dispatch(authAction.logout())
+Navigate('/Login')
     }
     const handleClick = () => {
         dispatch(toggleThemeaction.toggleTheme());
@@ -22,7 +24,7 @@ const dispatch=useDispatch();
   
       
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar fixed='top' bg="dark" variant="dark">
         <Nav className="me-auto" style={{width:'auto'}}>
             <Nav.Item>
                 <Nav.Link as={NavLink} to="/home">Home</Nav.Link>

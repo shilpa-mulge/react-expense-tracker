@@ -1,5 +1,5 @@
 import Login from './Login/Login';
-import classes from'./App.css';
+import './App.css';
 import Signup from './SignUpform/Signup';
 import { Routes, Navigate, Route } from 'react-router-dom';
 import Welcome from './Welcom';
@@ -17,19 +17,25 @@ import { SendPostReq } from './store/SendPostReq';
 import { SendGetReq } from './store/SendGetReq';
 import { SendPutReq } from './store/SendPutReq';
 import {SendDeleteReq} from './store/SendDeleteReq'
+import { Container } from 'react-bootstrap';
+
 let isShown=true;
 function App() {
   const isLogedin=useSelector(state=>state.auth.isLogedin)
   const expenses=useSelector(state=>state.expenses.item)
 const id=useSelector(state=>state.expenses.id);
+
   const dispatch=useDispatch();
   const mode = useSelector((state) => state.theme.currentTheme);
 const Added=useSelector(state=>state.expenses.Added)
 const deleted=useSelector(state=>state.expenses.deleted)
 const edited=useSelector(state=>state.expenses.edited)
+let item = localStorage.getItem('token');
+let initial = JSON.parse(item);
+const email=initial!==null?initial.emailId:'';
   useEffect(()=>{
-    dispatch(SendGetReq())
-  },[dispatch])
+    dispatch(SendGetReq(email))
+  },[dispatch,email])
 
 useEffect(()=>{
   if(isShown){
@@ -37,22 +43,23 @@ useEffect(()=>{
   return;
   }
   if(Added){
-dispatch(SendPostReq(expenses))
+dispatch(SendPostReq(expenses,email))
   }
  if(edited){
   console.log("Ediding")
-  dispatch(SendPutReq(expenses,id))
+  dispatch(SendPutReq(expenses,id,email))
 }
 if(deleted){
-  dispatch(SendDeleteReq(id))
+  dispatch(SendDeleteReq(id,email))
 }
  
 },[expenses,dispatch])
 
 return(
+ 
     <ThemeProvider theme={theme}>
-      <div style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
     <Root >
+    <Container fluid className='p-4 mt-5'  style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
   <Routes>
   <Route path='/'
     element={<Navigate to='/home' replace />}
@@ -60,9 +67,9 @@ return(
   <Route path='/home' element={
       <Welcome />
   } />
- <Route path='/Profile' element={
+ {isLogedin&&<Route path='/Profile' element={
       <ProfileLogin />
-  } />
+  } />}
   <Route path='/Login' element={
       <Login />
   } />
@@ -70,20 +77,20 @@ return(
       <Signup />
   } />
   
-    <Route path='/userProfile' element={
+   {isLogedin&& <Route path='/userProfile' element={
       <Profile />
-  } />
+  } />}
     <Route path='/ForgetPassword' element={
       <ForgetPass/>
   } />
-   <Route path='/Expense' element={
+  {isLogedin&& <Route path='/Expense' element={
       <Expense/>
-  } />
+  } />}
   
   <Route path='*' element={  <NotFound/> } />
   </Routes>
+  </Container>
   </Root>
-  </div>
   </ThemeProvider>
 
    );

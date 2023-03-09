@@ -35,7 +35,7 @@ const Signup=props=>{
     };
 return (
     <>
-    <Container className=" rounded p-4 mb-4 shadow w-50 ">
+    <Container className=" rounded p-4 mb-4 mt-3 shadow w-50 bg-info bg-opacity-25">
     {isLoding && <p>Loading...</p>}
     <Row style={{alignItems:'flex-end'}}>
 {!isLoding&&  <Form onSubmit={handleSubmit}>

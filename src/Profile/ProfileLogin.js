@@ -1,18 +1,21 @@
-import React,{useCallback, useEffect} from "react";
+import React from "react";
 import classes from'./ProfilrLogin.moule.css'
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { Container, Navbar, NavbarBrand ,Nav, Button} from "react-bootstrap";
+import { Container, Nav, Row,Col} from "react-bootstrap";
 import ExpenseForm from "../Expense/ExpensesForm";
 import ExpenseList from "../Expense/ExpenseList";
 import { useDispatch, useSelector } from "react-redux";
-import { ExpenseActions } from "../store/ExpenseReducer";
 import { authAction } from "../store/AuthReducer";
+import Notification from "../MainNavigation/Notification";
 import { theme } from "../theme";
 const ProfileLogin=()=>{
-    const token=useSelector(state=>state.auth.token)
+    let item = localStorage.getItem('token');
+    let initial = JSON.parse(item);
+    const token=initial!==null?initial.idToken:'';
 const IsemailVarified=useSelector(state=>state.auth.IsemailVarified)
 const mode=useSelector(state=>state.theme.currentTheme)
+const notification=useSelector(state=>state.ui.notification)
 const dispatch=useDispatch()
 
 
@@ -22,27 +25,29 @@ const dispatch=useDispatch()
             {requestType:"VERIFY_EMAIL",idToken:token})
             //console.log(response.data.email)
             dispatch(authAction.verification())
+            alert("Verification link has sent to your email!")
         } catch (error) {
        alert(error.response.data.error.message)
         } 
     }
 return  (
     <>
-<Navbar>
-    <NavbarBrand style={{ color: theme[mode].text}}>Welcome to expense tracker!!!</NavbarBrand>
-
-<Nav className='ms-auto'style={{width:'auto' }}>
-  {!IsemailVarified &&  <Nav.Link style={{ color: theme[mode].text}} onClick={verifyEmailHandler}>Verify Email</Nav.Link>}
-    <Container>
-your profile is incomplete<Nav.Link as={NavLink} to='/userProfile' style={{color:'green'}}> complete now.</Nav.Link>
+<Container fluid>
+    <Row>
+    <Col>
+    <h2 style={{ color: theme[mode].text}}>Welcome to expense tracker!!!</h2>
+    </Col>
+    <Col style={{justifyContent:'end', display:'flex', gap:'2rem'}}>
+  {!IsemailVarified &&  <Nav.Link style={{ color: theme[mode].text }} onClick={verifyEmailHandler}>Verify Email</Nav.Link>}
+  <Nav.Link style={{ color: theme[mode].text}}  as={NavLink} to='/userProfile' > Complete your profile.</Nav.Link>
+</Col>
+</Row>
 </Container>
-</Nav>
-</Navbar>
 <hr/>
-<Container>
+{notification&&<Notification status={notification.status} title={notification.title} message={notification.message}/>} 
     <ExpenseForm />
     <ExpenseList/>
-</Container>
+   
 </>
 )
 }
