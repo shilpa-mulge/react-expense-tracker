@@ -1,15 +1,10 @@
 
 import { Image,Button,Container } from 'react-bootstrap';
 import classes from './Welcome.module.css';
-import welcome from './Images/welcome.jpeg'
 import { useNavigate } from 'react-router-dom';
-import Vector from './Images/Vector.svg'
-import Close from './Images/close.png'
-import Menu from './Images/mobile_bar.png'
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import Vector from '../Images/Vector.svg'
 const Welcome=()=>{
-   const Navigate=useNavigate()
+   const Navigate=useNavigate();
     const onClickHandler=()=>{
 Navigate('/login')
     }

@@ -2,7 +2,7 @@ import Login from './Login/Login';
 import './App.css';
 import Signup from './SignUpform/Signup';
 import { Routes, Navigate, Route } from 'react-router-dom';
-import Welcome from './Welcom';
+import Welcome from './MainNavigation/Welcom';
 import Root from './MainNavigation/Root';
 import Profile from './Profile/Profile';
 import ProfileLogin from './Profile/ProfileLogin';

@@ -2,8 +2,8 @@ import {useState, useEffect } from "react";
 import { Form, Col,Row, Button, Container,Nav } from "react-bootstrap";
 import classes from './Profile.module.css'
 import { useSelector } from "react-redux";
-import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 const Profile=()=>{
     const Navigate=useNavigate()
     const token=useSelector(state=>state.auth.token);
