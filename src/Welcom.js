@@ -19,7 +19,7 @@ Navigate('/login')
        <h2> to Expense Tracker</h2>
        <p>Ever feel like you're throwing money away? Take control of your cashflow by logging what you've spent with this simple form </p>
     <Button variant='info' style={{width:'25%'}} onClick={onClickHandler}>Log an expense</Button>
-    <Image src={Vector}/>
+    <Image fluid src={Vector}/>
     </Container>
     )
 }

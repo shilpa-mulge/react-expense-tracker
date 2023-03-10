@@ -1,12 +1,12 @@
 export const theme = {
     light: {
-      bodyBg: "rgb(255, 255, 255)",
+      bodyBg: " rgb(78 144 184)",
       text: '#000000',
       primary: '#007bff',
       danger: '#dc3545',
     },
     dark: {
-      bodyBg: '#121212',
+      bodyBg: '#1d363b',
       text: '#ffffff',
       primary: '#007bff',
       danger: '#dc3545',

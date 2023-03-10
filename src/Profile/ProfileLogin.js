@@ -1,5 +1,5 @@
 import React from "react";
-import classes from'./ProfilrLogin.moule.css'
+import './ProfileLogin.moule.css'
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { Container, Nav, Row,Col} from "react-bootstrap";
@@ -32,22 +32,25 @@ const dispatch=useDispatch()
     }
 return  (
     <>
-<Container fluid>
+<Container className='profile' fluid >
     <Row>
     <Col>
     <h2 style={{ color: theme[mode].text}}>Welcome to expense tracker!!!</h2>
     </Col>
     <Col style={{justifyContent:'end', display:'flex', gap:'2rem'}}>
   {!IsemailVarified &&  <Nav.Link style={{ color: theme[mode].text }} onClick={verifyEmailHandler}>Verify Email</Nav.Link>}
-  <Nav.Link style={{ color: theme[mode].text}}  as={NavLink} to='/userProfile' > Complete your profile.</Nav.Link>
+  <Nav.Link style={{ color: theme[mode].text}}  as={NavLink} to='/userProfile' > Profile</Nav.Link>
 </Col>
 </Row>
-</Container>
 <hr/>
+<Row>
 {notification&&<Notification status={notification.status} title={notification.title} message={notification.message}/>} 
+</Row>
+<Row>
     <ExpenseForm />
     <ExpenseList/>
-   
+    </Row>
+    </Container>
 </>
 )
 }

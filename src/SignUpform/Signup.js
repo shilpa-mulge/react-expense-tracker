@@ -2,11 +2,13 @@ import React,{useState} from "react";
 import axios from "axios";
 import { Form, Button, Container,Row } from "react-bootstrap";
 import classes from './Signup.module.css'
-import { authAction } from "../store/AuthReducer";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-const Signup=props=>{
+import { authAction } from "../store/AuthReducer";
+const Signup=()=>{
+  const Navigate=useNavigate()
+  const dispatch=useDispatch()
     const [isLoding, setIsLoading] = useState(false)
-    const dispatch=useDispatch()
     // Initialize state for form fields
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +22,11 @@ const Signup=props=>{
                 const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
                     email: email, password: password, returnSecureToken: true
                 })
-              console.log("User has successfully signed up.")
+              alert("User has successfully signed up.")
+              const emailid = response.data.email.split('@')[0];
+                const token=response.data.idToken
+                dispatch(authAction.login({token:token, emailid:emailid}))
+              Navigate('/Profile')
               
             } catch (error) {
                 alert(error.response.data.error.message)
@@ -61,7 +67,7 @@ return (
     </Form>}
     </Row>
     <Row>
-    <Button variant="info" bg='dark'>Have an account? Login</Button>
+    <Button variant="info" bg='dark' onClick={()=>Navigate('/Login')}>Have an account? Login</Button>
     </Row>
     </Container>
     </>

@@ -1,0 +1,7 @@
+button{
+    background-color: aquamarine;
+}
+.profile{
+    height: 100%; 
+    overflow: auto; 
+}

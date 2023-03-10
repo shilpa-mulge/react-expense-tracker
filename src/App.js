@@ -59,7 +59,7 @@ return(
  
     <ThemeProvider theme={theme}>
     <Root >
-    <Container fluid className='p-4 mt-5'  style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
+    <Container className='App' fluid style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
   <Routes>
   <Route path='/'
     element={<Navigate to='/home' replace />}

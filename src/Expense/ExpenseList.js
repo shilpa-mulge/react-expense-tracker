@@ -46,12 +46,12 @@ const onDeletHandler=(id)=>{
 
     return (
         <>
-      {expenses===null&& <h1>No expenses, add some expenses</h1>}
+      {expenses.length===0&& <p>No expenses, add some expenses</p>}
      <Expense show={show} onHide={handleClose} expense={expense} />
          <Container className="rounded p-4 mb-4 shadow bg-info bg-opacity-25 ">
         <Row>
          <Nav className='ms-auto '>
-      <Nav.Link  as={NavLink}  onClick={handleDownloadClick} >Download expenses</Nav.Link>
+      <Nav.Link style={{color:'black'}}  as={NavLink}  onClick={handleDownloadClick} >Download expenses</Nav.Link>
       </Nav>
       </Row>
       <Row>

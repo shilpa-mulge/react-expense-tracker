@@ -62,7 +62,7 @@ Login      </Button>
     </Form>}
     </Row>
     <Row>
-    <Button variant="info" bg='dark'>Dont have an account? signUp</Button>
+    <Button variant="info" bg='dark' onClick={()=>Navigate('/SignUp')}>Dont have an account? signUp</Button>
     </Row>
     </Container>
    
