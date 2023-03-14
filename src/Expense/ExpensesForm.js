@@ -33,8 +33,8 @@ dispatch(ExpenseActions.AddExpense({ ExpenseName:category,
   };
 
   return (
-    <Container className='mt-3 bg-info bg-opacity-25'>
-    <Form onSubmit={handleSubmit}>
+    <Container className=' d-flex mt-3 bg-info bg-opacity-25 justify-content-center'>
+    <Form className='bg-info bg-opacity-50 w-75' onSubmit={handleSubmit} >
       <Form.Group controlId="moneySpent">
         <Form.Label>Money spent:</Form.Label>
         <Form.Control type="number" value={moneySpent} onChange={handleMoneySpentChange} />

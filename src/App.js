@@ -1,24 +1,24 @@
-import Login from './Login/Login';
+
 import './App.css';
-import Signup from './SignUpform/Signup';
 import { Routes, Navigate, Route } from 'react-router-dom';
 import Welcome from './MainNavigation/Welcom';
 import Root from './MainNavigation/Root';
-import Profile from './Profile/Profile';
-import ProfileLogin from './Profile/ProfileLogin';
-import ForgetPass from './ForgetPass/ForgetPass';
-import Expense from './Expense/Expense';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import {theme} from './theme'
 import NotFound from './MainNavigation/NotFound';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { SendPostReq } from './store/SendPostReq';
 import { SendGetReq } from './store/SendGetReq';
 import { SendPutReq } from './store/SendPutReq';
 import {SendDeleteReq} from './store/SendDeleteReq'
 import { Container } from 'react-bootstrap';
-
+const ForgetPass=lazy(()=>import('./ForgetPass/ForgetPass'));
+const Profile=lazy(()=>import('./Profile/Profile'));
+const ProfileLogin=lazy(()=>import('./Profile/ProfileLogin'));
+const Expense=lazy(()=>import('./Expense/Expense'));
+const Login=lazy(()=>import('./Login/Login'));
+const Signup=lazy(()=>import('./SignUpform/Signup'));
 let isShown=true;
 function App() {
   const isLogedin=useSelector(state=>state.auth.isLogedin)
@@ -56,7 +56,7 @@ if(deleted){
 },[expenses,dispatch])
 
 return(
- 
+ <Suspense fallback={<p>Loding....</p>}>
     <ThemeProvider theme={theme}>
     <Root >
     <Container className='App' fluid style={{ backgroundColor: theme[mode].bodyBg, color: theme[mode].text}}>
@@ -92,7 +92,7 @@ return(
   </Container>
   </Root>
   </ThemeProvider>
-
+  </Suspense>
    );
 
 }

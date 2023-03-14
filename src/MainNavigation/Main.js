@@ -31,7 +31,7 @@ setExpanded(false)
          <Navbar.Brand href="/home">Expense Tracker</Navbar.Brand>
          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={()=>setExpanded(!expanded)}/>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto" >
+          <Nav className="me-auto" >
           {!isLogedin&&  <Nav.Item>
                 <Nav.Link as={NavLink} to='/Login' onClick={()=>setExpanded(false)}>Login</Nav.Link>
             </Nav.Item>}
@@ -44,18 +44,19 @@ setExpanded(false)
             <Nav.Item>
      {totalAmount>10000 && isLogedin&& <Nav.Link variant="info"onClick={()=>setExpanded(false)}>Activate Premium</Nav.Link>}
             </Nav.Item>
+           
+            </Nav>
+            <Nav className="ms-auto">
+            <Nav.Item>
+     {isLogedin &&  <Nav.Link as={NavLink} to='/Login' onClick={logoutHander}>Logout</Nav.Link>}
+        </Nav.Item>
             <Nav.Item>
             <Nav.Link  onClick={handleClick}>
       {mode === 'light' ? 'Dark Mode' : 'Light Mode'}
     </Nav.Link>
             </Nav.Item>
-            <Nav.Item>
-     {isLogedin &&  <Nav.Link as={NavLink} to='/Login' onClick={logoutHander}>Logout</Nav.Link>}
-            </Nav.Item>
-            {isLogedin&&  <Nav.Item>
-                <Nav.Link as={NavLink} to='/home' onClick={()=>setExpanded(false)}>Back</Nav.Link>
-            </Nav.Item>}
             </Nav>
+            
         </Navbar.Collapse>
     </Navbar>
     ) 

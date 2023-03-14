@@ -1,12 +1,13 @@
 import {useState, useEffect } from "react";
 import { Form, Col,Row, Button, Container,Nav } from "react-bootstrap";
 import classes from './Profile.module.css'
-import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Profile=()=>{
     const Navigate=useNavigate()
-    const token=useSelector(state=>state.auth.token);
+    let item = localStorage.getItem('token');
+    let initial = JSON.parse(item);
+    const token=initial!==null?initial.idToken:'';
     const [user, setUser]=useState({displayName:'', photoUrl:''});
     const userUpdateFunction=async()=>{
         try {
@@ -42,18 +43,18 @@ const Profile=()=>{
 return (
     <>
     <Container fluid style={{height: '100%', overflow: 'auto' }}>
-    <Container  className="rounded p-4 mb-4 shadow w-75">
+   <Row>
             <h3>Winners never quite, quiters never win</h3>
         <p > your profile is 64% complete. complete now</p>
-        </Container>
+      </Row>
         <hr/>
-    <Container className="rounded p-4 mb-4 shadow w-75 bg-info bg-opacity-25" >
+    <Row className="rounded p-4 mb-4 shadow w-100 bg-info bg-opacity-25 justify-content-center" >
         <h2 >Contact details</h2>
-    <Form className="fs-2 bg-info bg-opacity-25 rounded" onSubmit={profileUpdateHandler}>
-      <Row>
-          <Col>  <Form.Label>Full name</Form.Label></Col>
+    <Form className="bg-info bg-opacity-25 rounded w-75 " onSubmit={profileUpdateHandler}>
+      <Row >
+          <Col xs={12}>  <Form.Label>Full name</Form.Label></Col>
          <Col> <Form.Control value={user.displayName} type='text'  onChange={(event) => setUser({ ...user, displayName: event.target.value })}/></Col>
-        <Col>
+        <Col xs={12}>
             <Form.Label>Profile photo url</Form.Label>
             </Col>
             <Col>
@@ -67,8 +68,10 @@ return (
      <Button variant="secondary" onClick={onCancleHandler}>Cancel</Button>
      </Container>
     </Form>
+    </Row>
+    <Row>
     <Nav.Link as={NavLink} to='/Profile' style={{textAlign:'end', color:'black', display:'inline'}}>Back</Nav.Link>
-    </Container>
+    </Row>
     </Container>
     </>
 )

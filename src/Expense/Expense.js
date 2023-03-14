@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from "react";
-import { Button,Form, Modal } from "react-bootstrap";
+import { Button,Container,Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { ExpenseActions } from "../store/ExpenseReducer";
@@ -26,12 +26,13 @@ useEffect(()=>{
  
     return (
         <>
+      
         <Modal show={props.show} onHide={props.onHide}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Expense</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form className="bg-info bg-opacity-50 w-100 " onSubmit={handleSubmit}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -62,6 +63,7 @@ useEffect(()=>{
         </Form>
       </Modal.Body>
     </Modal>
+  
     </>
     )
 }

@@ -55,7 +55,7 @@ const onDeletHandler=(id)=>{
       </Nav>
       </Row>
       <Row>
-        <Table style={{ color: theme[mode].text}}>
+        <Table className='bg-info bg-opacity-50' style={{ color: theme[mode].text}}>
           <thead >
             <tr >
               <th>#</th>
